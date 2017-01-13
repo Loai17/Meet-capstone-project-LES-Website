@@ -8,7 +8,7 @@ from databaseSetup import Base, Users, Newspaper
 app = Flask(__name__)
 app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
 
-engine = create_engine('sqlite:///LES.db')
+engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
@@ -47,43 +47,43 @@ def login():
 			return redirect(url_for('login'))
 
 
-@app.route('/Signup', methods = ['GET','POST'])
-def Signup():
+@app.route('/signup', methods = ['GET','POST'])
+def signup():
 	if request.method == 'POST':
 		user = Users(firstName = request.form['firstName'],
 			lastName=request.form['lastName'],
 			userName = request.form['userName'],
 			email = request.form['email'],
 			photo = request.form['photo'],
-			dob = request.form['dob'],
+		#	dob = request.form['dob'],
 			description = request.form['description'])
 		
 		password = request.form['password']
 
 		if user.firstName =="" or user.lastName == "" or user.userName == "" or user.email=="" or password=="":
 			flash("Your form is missing arguments")
-			return redirect(url_for('Signup'))
+			return redirect(url_for('signup'))
 		
-		if session.query(Users).filter_by(email = email).first() is not None:
+		if session.query(Users).filter_by(email = user.email).first() is not None:
 			flash("A user with this email address already exists.")
-			return redirect(url_for('Signup'))
+			return redirect(url_for('signup'))
 		
-		if session.query(Users).filter_by(userName = userName).first() is not None:
+		if session.query(Users).filter_by(userName = user.userName).first() is not None:
 			flash("This username is already taken.")
-			return redirect(url_for('Signup'))
+			return redirect(url_for('signup'))
 
 		user.hash_password(password)
 		session.add(user)
 		session.commit()
 		flash("User Created Successfully!")
-		return redirect(url_for('home'))
+		return redirect(url_for('profile' ,user_id = user.id))
 	else:
 		return render_template('signUp.html')
 
-@app.route("/product/<int:product_id>")
-def product(product_id):
-	product = session.query(Product).filter_by(id=product_id).one()
-	return render_template('product.html' , product=product)
+@app.route("/profile/<int:user_id>")
+def profile(user_id):
+	user = session.query(Users).filter_by(id=user_id).one()
+	return render_template('profile.html' , user=user)
 
 @app.route("/product/<int:product_id>/addToCart", methods = ['POST'])
 def addToCart(product_id):

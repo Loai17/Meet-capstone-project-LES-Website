@@ -1,9 +1,39 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
 
-</body>
+<h1> Sign up! </h1>
+
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+
+<form action="{{ url_for('signup') }}" method = 'post'>
+  Fisrt Name: 
+  <input type="text" name="firstName"><br>
+  Last Name: 
+  <input type="text" name="lastName"><br><br>
+  Username: 
+  <input type="text" name="userName"><br><br>
+  Email Address:<br>
+  <input type="text" name="email"><br>
+  Password:<br>
+  <input type="password" name="password"><br><br>
+  Profile Picture:<br>
+  <input type="text" name="photo"><br>
+  Add DOB here<br>
+  Description:
+  <input type="text" name="description"><br>
+  
+   <input type="submit" value="Create Account">
+</form>
 </html>
