@@ -3,7 +3,7 @@ from flask import session as login_session
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, func
 
-from databaseSetup import Base, Users, Newspaper
+from databaseSetup import Base, Users, Newspaper , Forums
 
 app = Flask(__name__)
 app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
@@ -13,12 +13,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
-def verify_password(email,password):
-	user = session.query().filter_by(email=email).first()
-	if not customer or not customer.verify_password(password):
-		return False
-	g.customer = customer
-	return True
+def verify_password(userName,pass1):
+	user = session.query(Users).filter_by(userName=userName).first()
+	if(user.password == pass1):
+		return True
+	return False
 
 @app.route('/')
 def home():
@@ -26,25 +25,25 @@ def home():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-	if request.method == 'GET':
-		return render_template('login.html')
-	elif request.method == 'POST':
-		email = request.form['email']
+	if request.method == 'POST':
+		userName = request.form['userName']
 		password = request.form['password']
-		if email=="" or password=="":
+		if userName=="" or password=="":
 			flash("Missing Arguments")
 			return redirect(url_for(login))
-		if verify_password(email,password):
-			customer=session.query(Customer).filter_by(email=email).one()
-			flash('Login Successful, welcome, %s' % customer.name)
-			login_session['name']=customer.name
-			login_session['email']=customer.email
-			login_session['id']=customer.id
-			return redirect(url_for('inventory'))
+		elif (verify_password(userName,password)):
+			user =session.query(Users).filter_by(userName=userName).one()
+			flash('Login Successful, welcome, %s' % user.firstName)
+			login_session['userName']=user.userName
+			login_session['email']=user.email
+			login_session['id']=user.id
+			return redirect(url_for('home'))
 		else:
 			#incorrect username/password
 			flash("Incorrect username/password combination")
 			return redirect(url_for('login'))
+	else:
+		return render_template('login.html')
 
 
 @app.route('/signup', methods = ['GET','POST'])
@@ -75,6 +74,7 @@ def signup():
 		user.hash_password(password)
 		session.add(user)
 		session.commit()
+		login_session['id'] = user.id
 		flash("User Created Successfully!")
 		return redirect(url_for('profile' ,user_id = user.id))
 	else:
@@ -83,28 +83,24 @@ def signup():
 @app.route("/profile/<int:user_id>")
 def profile(user_id):
 	user = session.query(Users).filter_by(id=user_id).one()
-	return render_template('profile.html' , user=user)
+	if login_session['id'] is not None:
+		return render_template('profile.html' , user=user , current_id = login_session['id'])
+	else:
+		return render_template('profile.html' , user=user)
 
-@app.route("/product/<int:product_id>/addToCart", methods = ['POST'])
-def addToCart(product_id):
-	if 'id' not in login_session:
-		flash("You must be logged in to perform this action")
-		return redirect(url_for('login'))
-	quantity = request.form['quantity']
-	product = session.query
-	#CONTINUE FROM HERE - ADD TO CART BUTTON (SECTION II)
 
-@app.route("/shoppingCart")
-def shoppingCart():
-	return "To be implemented"
+@app.route("/games")
+def games():
+	return render_template('games.html')
 
-@app.route("/removeFromCart/<int:product_id>", methods = ['POST'])
-def removeFromCart(product_id):
-	return "To be implmented"
+@app.route("/forums")
+def forums():
+	return render_template('forums.html')
 
-@app.route("/updateQuantity/<int:product_id>", methods = ['POST'])
-def updateQuantity(product_id):
-	return "To be implemented"
+@app.route("/forums/<int:thread_id>")
+def thread(thread_id):
+	thread = session.query(Forums).filter_by(id=thread_id).one()
+	return render_template('viewPost.html' , post=thread)
 
 @app.route("/checkout", methods = ['GET', 'POST'])
 def checkout():

@@ -7,6 +7,9 @@
 <h1>{{user.firstName}} {{user.lastName}}</h1>
 <p>{{user.userName}}</p>
 <p>{{user.description}}</p>
-
+<br><br>
+{% if user.id == current_id %}
+	<a role="button" class="btn btn-success" style="margin-right: 0.625em;">Edit</a>
+{% endif %}
 </body>
 </html>

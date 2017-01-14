@@ -34,6 +34,15 @@ class Newspaper(Base):
     id = Column(Integer,primary_key=True)
     email = Column(String(255))
 
+class Forums(Base):
+    __tablename__="forums"
+    __table_args__={'extend_existing':True}
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("Users")
+    title = Column(String(255))
+    description = Column(String)
+
 engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.create_all(engine)
 
@@ -45,8 +54,12 @@ loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="1234
 
 subscribe1=Newspaper(email = "loai.qubti@gmail.com")
 
+post=Forums(title="Basel masrooooooooq hhh",user_id=1,description="basel bd5n w b7shsh hhhhhhhh w kan shreek bquset 30/3/2015")
+
 session.query(Users).delete()
 session.query(Newspaper).delete()
+session.query(Forums).delete()
 session.add(loai)
 session.add(subscribe1)
+session.add(post)
 session.commit()
