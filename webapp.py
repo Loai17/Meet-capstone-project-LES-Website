@@ -95,16 +95,30 @@ def games():
 
 @app.route("/forums")
 def forums():
-	return render_template('forums.html')
+	posts = session.query(Forums).all()
+	return render_template('forums.html' , posts = posts)
 
-@app.route("/forums/<int:thread_id>")
-def thread(thread_id):
-	thread = session.query(Forums).filter_by(id=thread_id).one()
-	return render_template('viewPost.html' , post=thread)
+@app.route("/forums/<int:post_id>")
+def viewPost(post_id):
+	post = session.query(Forums).filter_by(id=post_id).one()
+	return render_template('viewPost.html' , post=post)
 
-@app.route("/checkout", methods = ['GET', 'POST'])
-def checkout():
-	return "To be implmented"
+@app.route("/addPost", methods = ['GET', 'POST'])
+def addPost():
+	if request.method == 'POST':
+		post = Forums(title = request.form['title'],
+			description = request.form['description'],
+			user_id = login_session['id'])
+		if post.title =="" or post.description == "":
+			flash("Your form is missing arguments")
+			return redirect(url_for('addPost'))
+		else:
+			session.add(post)
+			session.commit()
+			return redirect(url_for('viewPost' , post_id=post.id))
+	else:
+		return render_template('addPost.html')
+
 
 @app.route("/confirmation/<confirmation>")
 def confirmation(confirmation):

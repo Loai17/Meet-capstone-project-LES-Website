@@ -4,6 +4,11 @@
 	<title></title>
 </head>
 <body>
-
+<h1>Forums</h1>
+{% for post in posts %}
+<h2>{{post.title}}</h2>
+<p>{{post.description}}</p>
+<br><br>
+{% endfor %}
 </body>
 </html>
