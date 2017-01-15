@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>Add a post!</h1>
+<form action="{{ url_for('addPost') }}" method = 'post'>
+  Title: 
+  <input type="text" name="title"><br>
+  Description:
+  <input type="text" name="description"><br>
+  
+   <input type="submit" value="Submit">
+</form>
+</body>
+</html>

@@ -4,6 +4,10 @@
 	<title></title>
 </head>
 <body>
-WORKS
+<h3>Subscribe to our newsletter!</h3>
+<form action="{{ url_for('home') }}" method="post">
+Email:<input type="text" name="email">
+<input type="submit" value="Subscribe">
+</form>
 </body>
 </html>

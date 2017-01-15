@@ -4,6 +4,30 @@
 	<title></title>
 </head>
 <body>
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
 
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+<h1>Contact Us</h1>
+<form action="{{ url_for('contactUs') }}" method = 'post'>
+Name:<input type="text" name="name">
+<br>
+Email:<input type="text" name="email">
+<br>
+Message:<input type="text" name="message">
+<br>
+Press<input type="checkbox" name="press" value="press">
+Customer<input type="checkbox" name="customer" value="customer">
+ <input type="submit" value="Send">
+ </form>
 </body>
 </html>

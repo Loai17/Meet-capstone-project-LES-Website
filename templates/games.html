@@ -4,6 +4,11 @@
 	<title></title>
 </head>
 <body>
-GAMES
+<h1>Our Games!</h1>
+{% for game in games %}
+<h3>{{game.name}}</h3>
+<p>{{game.smallDes}}</p>
+<p>{{game.description}}</p>
+{% endfor %}
 </body>
 </html>

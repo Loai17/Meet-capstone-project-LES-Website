@@ -3,7 +3,7 @@ from flask import session as login_session
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, func
 
-from databaseSetup import Base, Users, Newspaper , Forums
+from databaseSetup import Base, Users, Newsletter,Forums ,Games ,ContactUs
 
 app = Flask(__name__)
 app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
@@ -19,9 +19,19 @@ def verify_password(userName,pass1):
 		return True
 	return False
 
-@app.route('/')
+@app.route('/', methods= ['GET','POST'])
 def home():
-	return render_template('homePage.html')
+	if request.method =='POST':
+		subscription = Newsletter(email=request.form['email'])
+		if subscription.email =="":
+			flash("Your form is missing arguments")
+			return redirect(url_for('home'))
+		else:
+			session.add(subscription)
+			session.commit()
+			return redirect(url_for('home'))
+	else:
+		return render_template('homePage.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -30,7 +40,7 @@ def login():
 		password = request.form['password']
 		if userName=="" or password=="":
 			flash("Missing Arguments")
-			return redirect(url_for(login))
+			return redirect(url_for('login'))
 		elif (verify_password(userName,password)):
 			user =session.query(Users).filter_by(userName=userName).one()
 			flash('Login Successful, welcome, %s' % user.firstName)
@@ -91,7 +101,8 @@ def profile(user_id):
 
 @app.route("/games")
 def games():
-	return render_template('games.html')
+	games = session.query(Games).all()
+	return render_template('games.html', games=games)
 
 @app.route("/forums")
 def forums():
@@ -120,9 +131,28 @@ def addPost():
 		return render_template('addPost.html')
 
 
-@app.route("/confirmation/<confirmation>")
-def confirmation(confirmation):
-	return "To be implemented"
+@app.route("/aboutUs")
+def aboutUs():
+	return render_template('aboutUs.html')
+
+@app.route("/contactUs", methods = ['GET', 'POST'])
+def contactUs():
+	if request.method =='POST':
+		messageRequest = ContactUs(name=request.form['name'],
+			email=request.form['email'],
+			message=request.form['message'])
+			#press=request.form['press'],
+			#customer=request.form['cutsomer'])
+		if messageRequest.email =="" or messageRequest.name=="" or messageRequest.message=="":
+			flash("Your form is missing arguments")
+			return redirect(url_for('contactUs'))
+		else:
+			flash("Your message has been sent.")
+			session.add(messageRequest)
+			session.commit()
+			return redirect(url_for('contactUs'))
+	else:
+		return render_template('contactUs.html')
 
 @app.route('/logout', methods = ['POST'])
 def logout():

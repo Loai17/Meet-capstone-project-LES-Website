@@ -1,0 +1,28 @@
+<html>
+
+<h1> Log in! </h1>
+
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+
+<form action="{{ url_for('login') }}" method = 'post'>
+  Username: 
+  <input type="text" name="userName"><br>
+  Password:
+  <input type="password" name="password"><br>
+  
+   <input type="submit" value="Login ya q7b">
+</form>
+</html>
