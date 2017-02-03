@@ -1,13 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>L E S</title>
+	<link rel="stylesheet" href="static/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h3>Subscribe to our newsletter!</h3>
-<form action="{{ url_for('home') }}" method="post">
-Email:<input type="text" name="email">
-<input type="submit" value="Subscribe">
-</form>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand active" href="{{ url_for('home') }}">6</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="{{ url_for('games') }}">Games</a></li>
+      <li><a href="{{ url_for('forums') }}">Forums</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ url_for('aboutUs') }}">About Us</a></li>
+          <li><a href="{{ url_for('contactUs') }}">Contact Us</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    {% if user != null %}
+      <li><a href="{{ url_for('profile' , user_id = user.id) }}"><span class="glyphicon glyphicon-user"></span>{{user.firstName}}</a></li>
+      <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span>Log Out</a></li>
+
+    {% else %}
+      <li><a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    {% endif %}
+    </ul>
+  </div>
+</nav>
+<h1>Low Eyed Studios</h1>
+
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="Images/territory.jpg" style="width:100%">
+  <div class="text">Territory</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="Images/wb_cover.jpg" style="width:100%">
+  <div class="text">Welter Brothers</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="Images/totp.jpg" style="width:100%">
+  <div class="text">We're partners with OTP!</div>
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+
+<div style="text-align:center">
+  <h4>Don't miss any updates and</h4>
+  <h4><b>Subscribe to our newsletter!</b></h4>
+  <form action="{{ url_for('home') }}" method="post">
+  <input type="text" name="email" placeholder="Email Address">
+  <input type="submit" value="Subscribe">
+  </form>
+</div>
+
 </body>
 </html>

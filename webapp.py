@@ -13,14 +13,18 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
+
 def verify_password(userName,pass1):
 	user = session.query(Users).filter_by(userName=userName).first()
-	if(user.password == pass1):
+	if(user is not None and user.password == pass1):
 		return True
 	return False
 
 @app.route('/', methods= ['GET','POST'])
 def home():
+	if login_session['id'] is None:
+		login_session['id']=(-1)
+
 	if request.method =='POST':
 		subscription = Newsletter(email=request.form['email'])
 		if subscription.email =="":
@@ -31,7 +35,11 @@ def home():
 			session.commit()
 			return redirect(url_for('home'))
 	else:
-		return render_template('homePage.html')
+		if login_session['id'] != (-1):
+			user=session.query(Users).filter_by(id=login_session['id']).first()
+			return render_template('homePage.html', user = user)
+		else:
+			return render_template('homePage.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -156,7 +164,10 @@ def contactUs():
 
 @app.route('/logout', methods = ['POST'])
 def logout():
-	return "To be implmented"
+	login_session['id'] = None
+	login_session['userName'] = None
+	login_session['email'] = None
+	return render_template('homePage.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
