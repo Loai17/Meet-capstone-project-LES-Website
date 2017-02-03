@@ -22,9 +22,6 @@ def verify_password(userName,pass1):
 
 @app.route('/', methods= ['GET','POST'])
 def home():
-	if login_session['id'] is None:
-		login_session['id']=(-1)
-
 	if request.method =='POST':
 		subscription = Newsletter(email=request.form['email'])
 		if subscription.email =="":
@@ -35,9 +32,12 @@ def home():
 			session.commit()
 			return redirect(url_for('home'))
 	else:
-		if login_session['id'] != (-1):
-			user=session.query(Users).filter_by(id=login_session['id']).first()
-			return render_template('homePage.html', user = user)
+		if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				return render_template('homePage.html', user = user)
+			else:
+				return render_template('homePage.html')
 		else:
 			return render_template('homePage.html')
 
@@ -70,6 +70,7 @@ def signup():
 		user = Users(firstName = request.form['firstName'],
 			lastName=request.form['lastName'],
 			userName = request.form['userName'],
+		#	password = request.form['password'],
 			email = request.form['email'],
 			photo = request.form['photo'],
 		#	dob = request.form['dob'],
@@ -101,8 +102,11 @@ def signup():
 @app.route("/profile/<int:user_id>")
 def profile(user_id):
 	user = session.query(Users).filter_by(id=user_id).one()
-	if login_session['id'] is not None:
-		return render_template('profile.html' , user=user , current_id = login_session['id'])
+	if 'id' in login_session:
+		if login_session['id'] is not None:
+			return render_template('profile.html' , user=user , current_id = login_session['id'])
+		else:
+			return render_template('profile.html' , user=user)
 	else:
 		return render_template('profile.html' , user=user)
 
@@ -162,12 +166,10 @@ def contactUs():
 	else:
 		return render_template('contactUs.html')
 
-@app.route('/logout', methods = ['POST'])
+@app.route('/logout')
 def logout():
-	login_session['id'] = None
-	login_session['userName'] = None
-	login_session['email'] = None
-	return render_template('homePage.html')
+	login_session.pop('id', None)
+	return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
