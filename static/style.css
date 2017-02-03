@@ -12,8 +12,8 @@ p {
     font-size: 20px;
 }
 
-.navbar-center{
-  text-align: center;
+.navbar{
+  
 }
 
 .mySlides {display:none}
@@ -48,8 +48,8 @@ p {
 
 /* The dots/bullets/indicators */
 .dot {
-  height: 13px;
-  width: 13px;
+  height: 8px;
+  width: 8px;
   margin: 0 2px;
   background-color: #bbb;
   border-radius: 50%;
