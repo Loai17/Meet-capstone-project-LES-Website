@@ -29,10 +29,10 @@ body, html {
 </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse fixed">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand active" href="{{ url_for('home') }}">6</a>
+      <a class="navbar-brand active" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://www.bhphotovideo.com/images/images500x500/Matthews_119751_Mirrored_Xeno_Reflector_144302.jpg" height="42" width="42"> </a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('games') }}">Games</a></li>
@@ -106,7 +106,7 @@ function showSlides() {
 }
 </script>
 <br><br>
-<div style="text-align:center">
+<div style="text-align:center"s>
   <h4>Don't miss any updates and</h4>
   <h4><b>Subscribe to our newsletter!</b></h4>
   <form action="{{ url_for('home') }}" method="post">
