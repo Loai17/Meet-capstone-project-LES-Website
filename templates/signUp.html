@@ -10,7 +10,7 @@
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand active" href="{{ url_for('home') }}"><img src="https://www.bhphotovideo.com/images/images500x500/Matthews_119751_Mirrored_Xeno_Reflector_144302.jpg" height="42" width="42"> </a>
+      <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://www.bhphotovideo.com/images/images500x500/Matthews_119751_Mirrored_Xeno_Reflector_144302.jpg" height="42" width="42"> </a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('games') }}">Games</a></li>
@@ -29,7 +29,7 @@
       <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
 
     {% else %}
-      <li><a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li class="active"><a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     {% endif %}
     </ul>
