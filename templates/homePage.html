@@ -8,18 +8,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/lib/w3.css">
+
   <style>
+.mySlides {display:none;}
+
 body, html {
     height: 100%;
     margin: 0;
+    background-color: #d1d1d1;
 }
 
 .bg {
     /* The image used */
-    background-image: url('https://fb-s-a-a.akamaihd.net/h-ak-xap1/v/t1.0-9/15203209_749214391896322_5444907026079728406_n.png?oh=13c68d58d123f27e9f11f1f8e826af17&oe=593C0FE6&__gda__=1497690553_0295c0426707f537e1970dc0cf1159ba');
+    background-image: url('https://photos-2.dropbox.com/t/2/AADqW-pKfXeqUf8fX6n2GvrTCknZRys2GoETLO0Be9ptOA/12/630537138/jpeg/32x32/1/_/1/2/Gif2.gif/EIXLwI4FGKUaIAcoBw/myYaUgo3kRhqAmBUCaQZT1k1IeVCMoEp265qlZhA8rA%2CfGMlvhF1KZrYf1Uf9-fY4xLYsKz06rTEeEvPYstFxYQ%2CYoJhvQXgUmp2c9frehteCBx3u16Jz_HhhDMARSOFi_k%2CuP3_IuHg65uEK7ieIGS2Pmfmt72Z3avg6ySdRW6QWTY?size=1280x960&size_mode=3');
 
     /* Full height */
-    height: 50%; 
+    height: 70%; 
 
     /* Center and scale the image nicely */
     background-position: center;
@@ -30,7 +35,7 @@ body, html {
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
-  <div class="container-fluid">
+  <div class="container-fluid navColor" style="padding-left: 10px;">
     <div class="navbar-header">
       <a class="navbar-brand active" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
     </div>
@@ -57,9 +62,34 @@ body, html {
     </ul>
   </div>
 </nav>
+<!-- Slideshow -->
+<div class="w3-content w3-section" style="max-width:1920;margin-top:-20px;height:70%">
+  <img class="mySlides" src="https://pbs.twimg.com/media/C3vXpMXWcAAeGXB.jpg:large" style="width:100%;height:55%">
+ <img class="mySlides" src="https://pbs.twimg.com/media/CzJSMMaUkAAyKX-.jpg:large" style="width:100%;height:55%">
+  <img class="mySlides" src="https://pbs.twimg.com/media/Cq3xZqOWYAA7G6n.jpg" style="width:100%;height:55%">
+    <img class="mySlides" src="https://pbs.twimg.com/media/CsD5LI8W8AAMdR9.jpg" style="width:100%;height:55%">
+  <img class="mySlides" src="https://pbs.twimg.com/media/Czl-NNdUAAA3bdE.jpg" style="width:100%;height:55%">
+  <img class="mySlides" src="https://pbs.twimg.com/media/Crm33k3XYAAAgu_.jpg" style="width:100%;height:55%">
+  <img class="mySlides" src="https://pbs.twimg.com/media/Cqjn85QVMAAtGWy.jpg:large" style="width:100%;height:55%">
 
-<div class="bg">
 </div>
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+
 <br><br>
 <div style="text-align:center"s>
   <h4>Don't miss any updates and</h4>
