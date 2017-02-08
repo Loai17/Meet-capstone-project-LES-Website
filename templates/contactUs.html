@@ -51,17 +51,19 @@
     {% endwith %}
 
 </div>
+<div class="container" align="center">
 <h1>Contact Us</h1>
-<form action="{{ url_for('contactUs') }}" method = 'post'>
-Name:<input type="text" name="name">
+<form action="{{ url_for('contactUs') }}" method = 'post'><br>
+<label>Name:</label> <br><input type="text" name="name" size="15" class="form-control">
 <br>
-Email:<input type="text" name="email">
+<label>Email:</label> <br><input type="text" name="email" size="20" class="form-control">
 <br>
-Message:<input type="text" name="message">
+<label>Message:</label> <br><textarea type="text" name="message" size="20" class="form-control" rows="4"></textarea>
 <br>
-Press<input type="checkbox" name="press" value="press">
-Customer<input type="checkbox" name="customer" value="customer">
- <input type="submit" value="Send">
+<label>Press </label><input type="checkbox" name="press" value="press">
+<label>Customer </label><input type="checkbox" name="customer" value="customer">
+ <br><br><input type="submit" value="Send Message">
  </form>
+ </div>
 </body>
 </html>

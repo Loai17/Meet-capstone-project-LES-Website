@@ -37,12 +37,15 @@
     </ul>
   </div>
 </nav>
-
 <h1>Our Games!</h1>
+
 {% for game in games %}
+<div class="box" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;">
 <h3>{{game.name}}</h3>
+<br>
 <p>{{game.smallDes}}</p>
-<p>{{game.description}}</p>
+<button>Read More</button>
+</div>
 {% endfor %}
 </body>
 </html>

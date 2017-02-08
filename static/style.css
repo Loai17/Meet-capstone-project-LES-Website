@@ -1,4 +1,4 @@
-body , html {
+body , html{
     background-color: #d1d1d1;
 }
 
@@ -26,3 +26,22 @@ p {
     background-color: #00a087;
 }
 
+.box{
+    background-color: white;
+    width: 300px;
+    border: 25px solid yellow;
+    padding: 25px;
+    margin: 25px;
+}
+
+.container{
+    position: relative;
+}
+.form-control {
+  box-shadow: none;
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  height: 54px;
+  font-size: 18px;
+  font-weight: 300;
+}
