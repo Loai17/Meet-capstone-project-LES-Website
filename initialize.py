@@ -13,7 +13,7 @@ engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 
-DBSession = sessionmaker(bind=engine)#, autoflush=False)
+DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
 loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="12345",

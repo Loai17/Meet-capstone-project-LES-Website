@@ -61,6 +61,9 @@ class ContactUs(Base):
  #   press = Column(Boolean)
 #    customer = Column(Boolean)
 
+def hash_password(password):
+    password = pwd_context.encrypt(password)
+
 engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
@@ -68,7 +71,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
-loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="12345",
+loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password=hash_password("12345"),
     email="loai.qubti@gmail.com",photo="Implement later",dob= datetime(2000, 7, 11),description="I'm doing this website yay!")
 
 subscribe1=Newsletter(email = "loai.qubti@gmail.com")

@@ -39,6 +39,9 @@
 </nav>
 
 <h1>Forums</h1>
+{% if user != null %}
+<div align="right"><a href="{{ url_for('addPost') }}">Add a post</a></div>
+{% endif %}
 {% for post in posts %}
 <h2>{{post.title}}</h2>
 <p>{{post.description}}</p>

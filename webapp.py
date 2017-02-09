@@ -11,7 +11,7 @@ app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
 
 engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)#, autoflush=False)
+DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
 
@@ -121,13 +121,31 @@ def games():
 
 @app.route("/forums")
 def forums():
-	posts = session.query(Forums).all()
-	return render_template('forums.html' , posts = posts)
+	if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				posts = session.query(Forums).all()
+				return render_template('forums.html', posts=posts , user = user)
+			else:
+				posts = session.query(Forums).all()
+				return render_template('forums.html' , posts = posts)
+	else:
+		posts = session.query(Forums).all()
+		return render_template('forums.html' , posts = posts)
 
 @app.route("/forums/<int:post_id>")
 def viewPost(post_id):
-	post = session.query(Forums).filter_by(id=post_id).one()
-	return render_template('viewPost.html' , post=post)
+	if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				post = session.query(Forums).filter_by(id=post_id).one()
+				return render_template('viewPost.html', post=post , user = user)
+			else:
+				post = session.query(Forums).filter_by(id=post_id).one()
+				return render_template('viewPost.html' , post=post)
+	else:
+		post = session.query(Forums).filter_by(id=post_id).one()
+		return render_template('viewPost.html' , post=post)
 
 @app.route("/addPost", methods = ['GET', 'POST'])
 def addPost():
