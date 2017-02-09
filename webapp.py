@@ -2,6 +2,7 @@ from flask import Flask, url_for, flash, redirect, request, render_template , g
 from flask import session as login_session
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, func
+from passlib.apps import custom_app_context as pwd_context
 
 from databaseSetup import Base, Users, Newsletter,Forums ,Games ,ContactUs
 
@@ -10,13 +11,16 @@ app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
 
 engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine, autoflush=False)
+DBSession = sessionmaker(bind=engine)#, autoflush=False)
 session = DBSession()
 
 
+def hash_password(password):
+	password = pwd_context.encrypt(password)
+
 def verify_password(userName,pass1):
 	user = session.query(Users).filter_by(userName=userName).first()
-	if(user is not None and user.password == pass1):
+	if(user is not None and user.password == hash_password(pass1)):
 		return True
 	return False
 
@@ -70,7 +74,7 @@ def signup():
 		user = Users(firstName = request.form['firstName'],
 			lastName=request.form['lastName'],
 			userName = request.form['userName'],
-		#	password = request.form['password'],
+			password = hash_password(request.form['password']),
 			email = request.form['email'],
 			photo = request.form['photo'],
 		#	dob = request.form['dob'],
@@ -90,7 +94,6 @@ def signup():
 			flash("This username is already taken.")
 			return redirect(url_for('signup'))
 
-		user.hash_password(password)
 		session.add(user)
 		session.commit()
 		login_session['id'] = user.id

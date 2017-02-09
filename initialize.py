@@ -13,7 +13,7 @@ engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 
-DBSession = sessionmaker(bind=engine, autoflush=False)
+DBSession = sessionmaker(bind=engine)#, autoflush=False)
 session = DBSession()
 
 loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="12345",
@@ -23,7 +23,6 @@ subscribe1=Newsletter(email = "loai.qubti@gmail.com")
 post = Forums(title="Hi",user_id=1,description="Bye")
 territory=Games(name="Territory",smallDes="Plant 5 trees w/ each purchase",description="cool game discription yooooooooo")
 welterBrothers=Games(name="Welter Brothers",smallDes="Fight the zombie apocalypse seperated",description="YOu two are seperated lol")
-#post=Forums(title="Basel masrooooooooq hhh",user_id=1,description="basel bd5n w b7shsh hhhhhhhh w kan shreek bquset 30/3/2015")
 contacter=ContactUs(name="Customer Yo",email="some1@gmail.com",message="Nice games")#,press=False,customer=True)
 session.query(Users).delete()
 session.query(Newsletter).delete()
