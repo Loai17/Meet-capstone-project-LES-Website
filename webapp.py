@@ -126,18 +126,19 @@ def editProfile():
 
 		password = request.form['password']
 
-#		if userInfo.firstName =="" or userInfo.lastName == "" or userInfo.userName == "" or userInfo.email=="" or password=="":
-#			flash("Your form is missing arguments")
-#			return redirect(url_for('editProfile'))
+		if userInfo.firstName =="" or userInfo.lastName == "" or userInfo.userName == "" or userInfo.email=="" or password=="":
+			flash("Your form is missing arguments")
+			return redirect(url_for('editProfile'))
 		
-#		if session.query(Users).filter_by(email = userInfo.email).first() is not None and userInfo.email != userInfo.email:
-#			flash("A user with this email address already exists.")
-#			return redirect(url_for('editProfile'))
-		
-#		if session.query(Users).filter_by(userName = userInfo.userName).first() is not None and user.userName != userInfo.userName:
-#			flash("This username is already taken.")
-#			return redirect(url_for('editProfile'))
 		user = session.query(Users).filter_by(id=login_session['id']).one()
+
+		if session.query(Users).filter_by(email = userInfo.email).first() is not None and user.email != userInfo.email:
+			flash("A user with this email address already exists.")
+			return redirect(url_for('editProfile'))
+		
+		if session.query(Users).filter_by(userName = userInfo.userName).first() is not None and user.userName != userInfo.userName:
+			flash("This username is already taken.")
+			return redirect(url_for('editProfile'))
 		user.firstName = userInfo.firstName
 		user.lastName = userInfo.lastName
 		user.password = userInfo.password

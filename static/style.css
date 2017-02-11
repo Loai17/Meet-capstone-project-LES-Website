@@ -56,4 +56,14 @@ p {
   height: 54px;
   font-size: 18px;
   font-weight: 300;
+  max-width: 500px;
+}
+.textbox{
+  box-shadow: none;
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+
+}
+.title{
+  font-size: 28px
 }

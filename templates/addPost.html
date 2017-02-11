@@ -40,12 +40,12 @@
 
 <h1>Add a post!</h1>
 <form action="{{ url_for('addPost') }}" method = 'post'>
-  Title: 
-  <input type="text" name="title"><br>
-  Description:
-  <input type="text" name="description"><br>
+    <p style="margin-left: 35px;">Title:</p>
+  <input type="text" name="title" style="margin-left: 35px;" class="textbox title"><br>
+  <p style="margin-left: 35px;">Description:</p>
+  <textarea type="text" name="description" size="50" rows='3' class="form-control" style="width: 538px; height: 106px;margin-left: 35px;"></textarea><br>
   
-   <input type="submit" value="Submit">
+   <input style="margin-left: 35px;" type="submit" value="Submit">
 </form>
 </body>
 </html>

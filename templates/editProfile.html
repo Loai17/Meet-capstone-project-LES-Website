@@ -49,20 +49,20 @@
 <div align="center">
 <form action="{{ url_for('editProfile') }}" method = 'post'>
   First Name: 
-  <input type="text" name="firstName"><br>
+  <input type="text" name="firstName" value="{{ user.firstName }}"><br>
   Last Name: 
-  <input type="text" name="lastName"><br><br>
+  <input type="text" name="lastName" value="{{ user.lastName }}"><br><br>
   Username: 
-  <input type="text" name="userName" disabled><br><br>
+  <input type="text" name="userName" value="{{ user.userName }}" disabled><br><br>
   Email Address:<br>
-  <input type="text" name="email"><br>
+  <input type="text" name="email" value="{{ user.email }}"><br>
   Password:<br>
-  <input type="password" name="password"><br><br>
+  <input type="password" name="password" value="{{ user.password }}"><br><br>
   Profile Picture:<br>
-  <input type="text" name="photo"><br>
+  <input type="text" name="photo" value="{{ user.photo }}"><br>
   Add DOB here<br>
   Description:<br>
-  <input type="text" name="description"><br>
+  <input type="text" name="description" value="{{ user.description }}"><br>
   
    <input type="submit" value="Apply Changes">
 </form>
