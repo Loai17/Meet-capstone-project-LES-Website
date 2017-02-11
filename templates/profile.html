@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  <link rel="stylesheet" href="/lib/w3.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
-  <div class="container-fluid navColor">
+  <div class="container-fluid navColor" style="padding-left: 10px;">
     <div class="navbar-header">
       <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
     </div>
@@ -30,6 +30,7 @@
     {% if user != null %}
       <li class="active"><a href="{{ url_for('profile' , user_id = user.id) }}"><span class="glyphicon glyphicon-user"></span> {{user.firstName}}</a></li>
       <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+
     {% else %}
       <li><a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -43,7 +44,7 @@
 <p>{{user.description}}</p>
 <br><br>
 {% if user.id == current_id %}
-	<a role="button" class="btn btn-success" style="margin-right: 0.625em;">Edit</a>
+	<a href="{{ url_for('editProfile' ,user_id=user.id) }}" role="button" class="btn btn-success" style="margin-right: 0.625em;">Edit</a>
 {% endif %}
 </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 <link rel="stylesheet" href="static/style.css">
+	<title></title>
+		<link rel="stylesheet" href="static/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -38,12 +39,10 @@
     </ul>
   </div>
 </nav>
-
-<h1>{{post.title}}</h1>
-
-<br><br>
-<p>{{post.description}}</p>
+{{ game.name }}
 <br>
-<p>By : {{post.user.firstName}}</p>
+{{ game.smallDes }}
+<br>
+{{ game.Desctription }}
 </body>
 </html>

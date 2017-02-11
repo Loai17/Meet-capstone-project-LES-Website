@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+  <link rel="stylesheet" href="/lib/w3.css"></head>
 <body>
 <nav class="navbar navbar-inverse fixed">
-  <div class="container-fluid navColor">
+  <div class="container-fluid navColor" style="padding-left: 10px;">
     <div class="navbar-header">
       <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
     </div>
@@ -40,11 +40,13 @@
 <h1>Our Games!</h1>
 
 {% for game in games %}
-<div class="box" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;">
-<h3>{{game.name}}</h3>
-<br>
-<p>{{game.smallDes}}</p>
-<button>Read More</button>
+<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;">
+  <img src="/images/territory.jpg" alt="Avatar" style="width:100%">
+  <div class="container">
+    <h4><b>{{game.name}}</b></h4> 
+    <p>{{game.smallDes}}</p> 
+    <a href="{{ url_for('viewGame' , game_id = game.id )}}">Read More</a>
+  </div>
 </div>
 {% endfor %}
 </body>

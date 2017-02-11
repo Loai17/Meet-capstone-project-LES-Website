@@ -113,11 +113,68 @@ def profile(user_id):
 	else:
 		return render_template('profile.html' , user=user)
 
+@app.route('/editProfile', methods = ['GET','POST'])
+def editProfile():
+	if request.method == 'POST':
+		userInfo = Users(firstName = request.form['firstName'],
+			lastName=request.form['lastName'],
+			password = hash_password(request.form['password']),
+			email = request.form['email'],
+			photo = request.form['photo'],
+		#	dob = request.form['dob'],
+			description = request.form['description'])
+
+		password = request.form['password']
+
+#		if userInfo.firstName =="" or userInfo.lastName == "" or userInfo.userName == "" or userInfo.email=="" or password=="":
+#			flash("Your form is missing arguments")
+#			return redirect(url_for('editProfile'))
+		
+#		if session.query(Users).filter_by(email = userInfo.email).first() is not None and userInfo.email != userInfo.email:
+#			flash("A user with this email address already exists.")
+#			return redirect(url_for('editProfile'))
+		
+#		if session.query(Users).filter_by(userName = userInfo.userName).first() is not None and user.userName != userInfo.userName:
+#			flash("This username is already taken.")
+#			return redirect(url_for('editProfile'))
+		user = session.query(Users).filter_by(id=login_session['id']).one()
+		user.firstName = userInfo.firstName
+		user.lastName = userInfo.lastName
+		user.password = userInfo.password
+		user.email = userInfo.email
+		user.photo = userInfo.photo
+		user.description = userInfo.description
+		session.commit()
+		flash("Applied Changes Successfuly!")
+		return redirect(url_for('profile' ,user_id = user.id))
+	else:
+		user = session.query(Users).filter_by(id=login_session['id']).one()
+		return render_template('editProfile.html',user=user)
 
 @app.route("/games")
 def games():
 	games = session.query(Games).all()
-	return render_template('games.html', games=games)
+	if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				return render_template('games.html', user = user , games = games)
+			else:
+				return render_template('games.html', games=games)
+	else:
+		return render_template('games.html', games=games)
+
+
+@app.route("/games/<int:game_id>")
+def viewGame(game_id):
+	game = session.query(Games).filter_by(id=game_id).one()
+	if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				return render_template('viewGame.html', user = user , game = game)
+			else:
+				return render_template('viewGame.html', game=game)
+	else:
+		return render_template('viewGame.html', game=game)
 
 @app.route("/forums")
 def forums():
@@ -166,7 +223,15 @@ def addPost():
 
 @app.route("/aboutUs")
 def aboutUs():
-	return render_template('aboutUs.html')
+	if 'id' in login_session:
+		if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+			user=session.query(Users).filter_by(id=login_session['id']).first()
+			return render_template('aboutUs.html', user = user)
+		else:
+			return render_template('aboutUs.html')
+	else:
+		return render_template('aboutUs.html')
+
 
 @app.route("/contactUs", methods = ['GET', 'POST'])
 def contactUs():
@@ -185,7 +250,14 @@ def contactUs():
 			session.commit()
 			return redirect(url_for('contactUs'))
 	else:
-		return render_template('contactUs.html')
+		if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				return render_template('contactUs.html', user = user)
+			else:
+				return render_template('contactUs.html')
+		else:
+			return render_template('contactUs.html')
 
 @app.route('/logout')
 def logout():
