@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
-  <div class="container-fluid navColor" style="padding-left: 10px;">
+  <div class="container-fluid navColor" style="background-color: black;padding-left: 10px;">
     <div class="navbar-header">
       <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
     </div>
@@ -38,13 +38,14 @@
     </ul>
   </div>
 </nav>
-
+<div align="center">
 <h1>{{user.firstName}} {{user.lastName}}</h1>
-<p>{{user.userName}}</p>
+<p style="margin-top: -11px;">{{user.userName}}</p>
 <p>{{user.description}}</p>
 <br><br>
 {% if user.id == current_id %}
 	<a href="{{ url_for('editProfile' ,user_id=user.id) }}" role="button" class="btn btn-success" style="margin-right: 0.625em;">Edit</a>
 {% endif %}
+</div>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid navColor">
     <div class="navbar-header">
-      <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
+      <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42" style="margin-left: -5px;"> </a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('games') }}">Games</a></li>
@@ -48,21 +48,21 @@
 <br>
 <div align="center">
 <form action="{{ url_for('editProfile') }}" method = 'post'>
-  First Name: 
-  <input type="text" name="firstName" value="{{ user.firstName }}"><br>
-  Last Name: 
-  <input type="text" name="lastName" value="{{ user.lastName }}"><br><br>
-  Username: 
-  <input type="text" name="userName" value="{{ user.userName }}" disabled><br><br>
+  First Name:
+  <input type="text" name="firstName" value="{{ user.firstName }}" onfocus="this.value = this.value=='{{ user.firstName }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.firstName }}':this.value;"> <br>
+  Last Name:
+  <input type="text" name="lastName" value="{{ user.lastName }}" onfocus="this.value = this.value=='{{ user.lastName }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.lastName }}':this.value;"><br><br>
+  Username:
+  <input type="text" name="userName" value="{{ user.userName }}" onfocus="this.value = this.value=='{{ user.userName }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.userName }}':this.value;" disabled><br><br>
   Email Address:<br>
-  <input type="text" name="email" value="{{ user.email }}"><br>
+  <input type="text" name="email" value="{{ user.email }}" onfocus="this.value = this.value=='{{ user.email }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.email }}':this.value;"><br>
   Password:<br>
-  <input type="password" name="password" value="{{ user.password }}"><br><br>
+  <input type="password" name="password" value="{{ user.password }}" onfocus="this.value = this.value=='{{ user.password }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.password }}':this.value;"><br><br>
   Profile Picture:<br>
-  <input type="text" name="photo" value="{{ user.photo }}"><br>
+  <input type="text" name="photo" value="{{ user.photo }}" onfocus="this.value = this.value=='{{ user.photo }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.photo }}':this.value;"><br>
   Add DOB here<br>
   Description:<br>
-  <input type="text" name="description" value="{{ user.description }}"><br>
+  <input type="text" name="description" value="{{ user.description }}" onfocus="this.value = this.value=='{{ user.description }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.description }}':this.value;"><br>
   
    <input type="submit" value="Apply Changes">
 </form>

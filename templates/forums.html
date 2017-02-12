@@ -8,12 +8,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/lib/w3.css">
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #d1d1d1;
+}
+</style>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid navColor">
     <div class="navbar-header">
-      <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
+      <a class="navbar-brand" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42" style="margin-left: -5px;"> </a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('games') }}">Games</a></li>
@@ -41,13 +49,15 @@
 
 <h1>Forums</h1>
 {% if user != null %}
-<div align="right"><a href="{{ url_for('addPost') }}">Add a post</a></div>
+<div align="center"><a href="{{ url_for('addPost') }}">Add a post</a></div>
+{% else %}
+<div align="center">Login to post</div>
 {% endif %}
 {% for post in posts %}
-<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;">
+<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
   <div class="container">
     <h4><b>{{post.title}}</b></h4> 
-    <p>{{post.description}}</p> 
+    <div class="crop">{{post.description}}</div> <br>
     <a href="{{ url_for('viewPost', post_id = post.id) }}">Read more</a>
   </div>
 </div>

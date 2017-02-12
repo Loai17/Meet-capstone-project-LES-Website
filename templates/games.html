@@ -7,7 +7,16 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/lib/w3.css"></head>
+  <link rel="stylesheet" href="/lib/w3.css">
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #d1d1d1;
+}
+</style>
+
+  </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid navColor" style="padding-left: 10px;">
@@ -40,8 +49,8 @@
 <h1>Our Games!</h1>
 
 {% for game in games %}
-<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;">
-  <img src="/images/territory.jpg" alt="Avatar" style="width:100%">
+<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
+  <img src="static/images/territory.jpg" alt="Avatar" style="width:100%;">
   <div class="container">
     <h4><b>{{game.name}}</b></h4> 
     <p>{{game.smallDes}}</p> 

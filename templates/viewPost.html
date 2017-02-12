@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/lib/w3.css">
+
+  <style>
+.mySlides {display:none;}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #d1d1d1;
+}
+
+.bg {
+    /* The image used */
+    background-image: url('https://photos-2.dropbox.com/t/2/AADqW-pKfXeqUf8fX6n2GvrTCknZRys2GoETLO0Be9ptOA/12/630537138/jpeg/32x32/1/_/1/2/Gif2.gif/EIXLwI4FGKUaIAcoBw/myYaUgo3kRhqAmBUCaQZT1k1IeVCMoEp265qlZhA8rA%2CfGMlvhF1KZrYf1Uf9-fY4xLYsKz06rTEeEvPYstFxYQ%2CYoJhvQXgUmp2c9frehteCBx3u16Jz_HhhDMARSOFi_k%2CuP3_IuHg65uEK7ieIGS2Pmfmt72Z3avg6ySdRW6QWTY?size=1280x960&size_mode=3');
+
+    /* Full height */
+    height: 70%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>    
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
-  <div class="container-fluid navColor" style="padding-left: 10px;">
+  <div class="container-fluid navColor" style="background-color: black;padding-left: 10px;">
     <div class="navbar-header">
       <a class="navbar-brand active" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42"> </a>
     </div>
