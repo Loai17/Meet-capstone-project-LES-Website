@@ -16,13 +16,18 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
 session = DBSession()
 
-loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="12345",
+
+def hash_password(password):
+    password = pwd_context.encrypt(password)
+
+loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password=hash_password("12345"),
     email="loai.qubti@gmail.com",photo="Implement later",dob= datetime(2000, 7, 11),description="I'm doing this website yay!")
 
 subscribe1=Newsletter(email = "loai.qubti@gmail.com")
 post = Forums(title="Hi",user_id=1,description="Bye")
 territory=Games(name="Territory",smallDes="Territory indirectly teaches it's players how important trees are , in the game they'll start having no food or wood to build , therefore in real life they'll start caring more about trees and actually realize what happens when only 1 tree gets cut down.",description="cool game discription yooooooooo")
 welterBrothers=Games(name="Welter Brothers",smallDes="Fight the zombie apocalypse seperated",description="YOu two are seperated lol")
+#post=Forums(title="Basel masrooooooooq hhh",user_id=1,description="basel bd5n w b7shsh hhhhhhhh w kan shreek bquset 30/3/2015")
 contacter=ContactUs(name="Customer Yo",email="some1@gmail.com",message="Nice games")#,press=False,customer=True)
 session.query(Users).delete()
 session.query(Newsletter).delete()
