@@ -6,7 +6,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/lib/w3.css"></head>
+  <link rel="stylesheet" href="/lib/w3.css">
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #d1d1d1;
+}
+</style>
+  </head>
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid navColor">
     <div class="navbar-header">
@@ -63,7 +71,7 @@
   Add DOB here<br>
   Description:<br>
   <input type="text" name="description" value="{{ user.description }}" onfocus="this.value = this.value=='{{ user.description }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.description }}':this.value;"><br>
-  
+  <br>
    <input type="submit" value="Apply Changes">
 </form>
 </div>

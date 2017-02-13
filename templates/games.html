@@ -53,7 +53,7 @@
   <img src="static/images/territory.jpg" alt="Avatar" style="width:100%;">
   <div class="container">
     <h4><b>{{game.name}}</b></h4> 
-    <p>{{game.smallDes}}</p> 
+     <div class="crop">{{game.smallDes}}</div>
     <a href="{{ url_for('viewGame' , game_id = game.id )}}">Read More</a>
   </div>
 </div>

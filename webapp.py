@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, func
 from passlib.apps import custom_app_context as pwd_context
 
-from databaseSetup import Base, Users, Newsletter,Forums ,Games ,ContactUs
+from databaseSetup import Base, Users, Newsletter ,Forums ,Games ,ContactUs
 
 app = Flask(__name__)
 app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
