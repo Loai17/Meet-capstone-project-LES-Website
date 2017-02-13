@@ -21,7 +21,7 @@ loai=Users(firstName="Loai",lastName="Qubti",userName="Loaiq1107",password="1234
 
 subscribe1=Newsletter(email = "loai.qubti@gmail.com")
 post = Forums(title="Hi",user_id=1,description="Bye")
-territory=Games(name="Territory",smallDes="Plant 5 trees w/ each purchase",description="cool game discription yooooooooo")
+territory=Games(name="Territory",smallDes="Territory indirectly teaches it's players how important trees are , in the game they'll start having no food or wood to build , therefore in real life they'll start caring more about trees and actually realize what happens when only 1 tree gets cut down.",description="cool game discription yooooooooo")
 welterBrothers=Games(name="Welter Brothers",smallDes="Fight the zombie apocalypse seperated",description="YOu two are seperated lol")
 contacter=ContactUs(name="Customer Yo",email="some1@gmail.com",message="Nice games")#,press=False,customer=True)
 session.query(Users).delete()
