@@ -55,5 +55,31 @@
 <br>
 <p style="font-size:20px">{{ game.Desctription }}</p>
 </div>
+<div align="center">
+{% if user != null %}
+<form action="{{ url_for('gameComment' ,game_id1 = game.id ,userName = user.userName) }}" method="post">
+Comment: <input type="text" name="comment" size="100"><input type="submit" value="Post">
+</form>
+{% else %}
+Comment: <input type="text" name="comment" size="100" placeholder="Login to write a comment" disabled><input type="submit" value="Post" disabled>
+{% endif %}
+</div>
+<br>
+{% if comments == [] %}
+<p align="center">No comments have been posted yet.</p>
+{% else %}
+  {% for comment in comments %}
+  <div class="card container" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
+    <p>{{ comment.userNameG }}: {{ comment.comment }}</p>
+    {% if user != null %} 
+      {% if comment.userNameG == user.userName %}
+        <div align="right">
+        <form action="{{ url_for('delGameComment' ,comment_id=comment.id,game_id=game.id) }}" method="post">
+        <input type="submit" value="delete"></form></div>
+      {% endif %}
+    {% endif %}
+    </div>
+  {% endfor %}
+{% endif %}
 </body>
 </html>

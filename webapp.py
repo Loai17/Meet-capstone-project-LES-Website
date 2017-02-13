@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, func
 from passlib.apps import custom_app_context as pwd_context
 
-from databaseSetup import Base, Users, Newsletter ,Forums ,Games ,ContactUs
+from databaseSetup import Base, Users, Newsletter ,Forums ,Games ,ContactUs , ForumComments , GameComments
 
 app = Flask(__name__)
 app.secret_key = "lorenzo plz dont tell anyone my secret key:)"
@@ -171,11 +171,40 @@ def viewGame(game_id):
 	if 'id' in login_session:
 			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
 				user=session.query(Users).filter_by(id=login_session['id']).first()
-				return render_template('viewGame.html', user = user , game = game)
+				if session.query(GameComments).filter_by(game_id=game_id).all() is not None:
+					comments = session.query(GameComments).filter_by(game_id=game_id).all()
+					return render_template('viewGame.html', user = user , game = game , comments=comments)
+				else:
+					return render_template('viewGame.html', user = user , game = game)
 			else:
-				return render_template('viewGame.html', game=game)
+				if session.query(GameComments).filter_by(game_id=game_id).all() is not None:
+					comments = session.query(GameComments).filter_by(game_id=game_id).all()
+					return render_template('viewGame.html', game=game , comments=comments)
+				else:
+					return render_template('viewGame.html', game=game)
 	else:
-		return render_template('viewGame.html', game=game)
+		if session.query(GameComments).filter_by(game_id=game_id).all() is not None:
+			comments = session.query(GameComments).filter_by(game_id=game_id).all()
+			return render_template('viewGame.html', game=game , comments=comments)
+		else:
+			return render_template('viewGame.html', game=game)
+
+@app.route("/gameComment/<int:game_id1>/<string:userName>" , methods=['GET','POST'])
+def gameComment(game_id1 , userName):
+	if request.method == 'POST':
+		cmnt = GameComments(comment= request.form['comment'] , game_id = game_id1 , userNameG=userName)
+		session.add(cmnt)
+		session.commit()
+		return redirect(url_for('viewGame' , game_id=game_id1))
+	else:
+		return redirect(url_for('viewGame' , game_id=game_id1))
+
+@app.route("/delCommentG/<int:game_id>/<int:comment_id>" , methods=['POST'])
+def delGameComment(comment_id , game_id):
+	comment= session.query(GameComments).filter_by(id=comment_id).one()
+	session.delete(comment)
+	session.commit()
+	return redirect(url_for('viewGame' , game_id=game_id))
 
 @app.route("/forums")
 def forums():
@@ -197,13 +226,25 @@ def viewPost(post_id):
 			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
 				user=session.query(Users).filter_by(id=login_session['id']).first()
 				post = session.query(Forums).filter_by(id=post_id).one()
-				return render_template('viewPost.html', post=post , user = user)
+				if session.query(ForumComments).filter_by(forum_id=post_id).all() is not None:
+					comments = session.query(ForumComments).filter_by(forum_id=post_id).all()
+					return render_template('viewPost.html', post=post , user = user ,comments=comments)
+				else:
+					return render_template('viewPost.html', post=post , user = user)
 			else:
 				post = session.query(Forums).filter_by(id=post_id).one()
-				return render_template('viewPost.html' , post=post)
+				if session.query(ForumComments).filter_by(forum_id=post_id).all() is not None:
+					comments = session.query(ForumComments).filter_by(forum_id=post_id).all()
+					return render_template('viewPost.html' , post=post , comments=comments)
+				else:
+					return render_template('viewPost.html' , post=post)
 	else:
 		post = session.query(Forums).filter_by(id=post_id).one()
-		return render_template('viewPost.html' , post=post)
+		if session.query(ForumComments).filter_by(forum_id=post_id).all() is not None:
+			comments = session.query(ForumComments).filter_by(forum_id=post_id).all()
+			return render_template('viewPost.html' , post=post , comments=comments)
+		else:
+			return render_template('viewPost.html' , post=post)
 
 @app.route("/addPost", methods = ['GET', 'POST'])
 def addPost():
@@ -221,6 +262,22 @@ def addPost():
 	else:
 		return render_template('addPost.html')
 
+@app.route("/forumComment/<int:forum_id1>/<string:userName>" , methods=['GET','POST'])
+def forumComment(forum_id1 , userName):
+	if request.method == 'POST':
+		cmnt = ForumComments(comment= request.form['comment'] , forum_id = forum_id1 , userNameF=userName)
+		session.add(cmnt)
+		session.commit()
+		return redirect(url_for('viewPost' , post_id=forum_id1))
+	else:
+		return redirect(url_for('viewPost' , post_id=forum_id1))
+
+@app.route("/delCommentF/<int:forum_id>/<int:comment_id>" , methods=['POST'])
+def delForumComment(comment_id , forum_id):
+	comment= session.query(ForumComments).filter_by(id=comment_id).one()
+	session.delete(comment)
+	session.commit()
+	return redirect(url_for('viewPost' , post_id=forum_id))
 
 @app.route("/aboutUs")
 def aboutUs():

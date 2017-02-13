@@ -61,6 +61,23 @@ class ContactUs(Base):
  #   press = Column(Boolean)
 #    customer = Column(Boolean)
 
+class ForumComments(Base):
+    __tablename__="Forum Comments"
+    __table_args__={'extend_existing':True}
+    id=Column(Integer,primary_key=True)
+    comment= Column(String)
+    forum_id= Column(Integer)
+    userNameF = Column(String)
+
+class GameComments(Base):
+    __tablename__="Game Comments"
+    __table_args__={'extend_existing':True}
+    id=Column(Integer,primary_key=True)
+    comment= Column(String)
+    game_id= Column(Integer)
+    userNameG = Column(String)
+
+
 def hash_password(password):
     password = pwd_context.encrypt(password)
 

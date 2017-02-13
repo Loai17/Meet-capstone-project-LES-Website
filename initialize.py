@@ -7,7 +7,7 @@ import random, string
 from itsdangerous import(TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 from datetime import datetime
 
-from databaseSetup import Base , Users , Newsletter , Forums , Games , ContactUs
+from databaseSetup import Base , Users , Newsletter , Forums , Games , ContactUs , ForumComments , GameComments
 
 engine = create_engine('sqlite:///DatabaseLES.db')
 Base.metadata.create_all(engine)
@@ -29,15 +29,21 @@ territory=Games(name="Territory",smallDes="Territory indirectly teaches it's pla
 welterBrothers=Games(name="Welter Brothers",smallDes="Fight the zombie apocalypse seperated",description="YOu two are seperated lol")
 #post=Forums(title="Basel masrooooooooq hhh",user_id=1,description="basel bd5n w b7shsh hhhhhhhh w kan shreek bquset 30/3/2015")
 contacter=ContactUs(name="Customer Yo",email="some1@gmail.com",message="Nice games")#,press=False,customer=True)
+forum_cmnt=ForumComments(comment="Nice post!",forum_id=1,userNameF='Loaiq1107')
+game_cmnt=GameComments(comment="Nice Game!",game_id=1,userNameG='Loaiq1107')
 session.query(Users).delete()
 session.query(Newsletter).delete()
 session.query(Forums).delete()
 session.query(Games).delete()
 session.query(ContactUs).delete()
+session.query(ForumComments).delete()
+session.query(GameComments).delete()
 session.add(contacter)
 session.add(territory)
 session.add(welterBrothers)
 session.add(loai)
 session.add(subscribe1)
 session.add(post)
+session.add(forum_cmnt)
+session.add(game_cmnt)
 session.commit()
