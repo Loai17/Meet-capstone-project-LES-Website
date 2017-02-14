@@ -18,8 +18,14 @@
 <nav class="navbar navbar-inverse fixed">
   <div class="container-fluid navColor">
     <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>                      
+</button>
       <a class="navbar-brand active" style="padding-top: 03px;" href="{{ url_for('home') }}"><img src="https://pbs.twimg.com/profile_images/768085749845622784/CA9YOdSy.jpg" height="42" width="42" style="margin-left: -5px;"> </a>
     </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('games') }}">Games</a></li>
       <li><a href="{{ url_for('forums') }}">Forums</a></li>
@@ -41,6 +47,7 @@
       <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     {% endif %}
     </ul>
+  </div>
   </div>
 </nav>
 
