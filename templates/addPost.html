@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style>
+    body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #d1d1d1;
+}
+  </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse fixed">
@@ -41,7 +48,7 @@
 <h1>Add a post!</h1>
 <form action="{{ url_for('addPost') }}" method = 'post'>
     <p style="margin-left: 35px;">Title:</p>
-  <input type="text" name="title" style="margin-left: 35px;" class="textbox title"><br>
+  <input type="text" name="title" style="margin-left: 35px;background-color:white;" class="textbox title"><br>
   <p style="margin-left: 35px;">Description:</p>
   <textarea type="text" name="description" size="50" rows='3' class="form-control" style="width: 538px; height: 106px;margin-left: 35px;"></textarea><br>
   

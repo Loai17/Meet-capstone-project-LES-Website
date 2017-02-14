@@ -73,6 +73,10 @@
   <input type="text" name="description" value="{{ user.description }}" onfocus="this.value = this.value=='{{ user.description }}'?'':this.value;" onblur="this.value = this.value==''?'{{ user.description }}':this.value;"><br>
   <br>
    <input type="submit" value="Apply Changes">
+   <br>
+</form>
+<form action="{{ url_for('delAccount' , user_id=user.id) }}" method="post">
+  <input type="submit" value="Delete Account Permanently" style="background-color:red;">
 </form>
 </div>
 </html>

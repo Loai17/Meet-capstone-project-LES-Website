@@ -51,16 +51,21 @@
 {% if user != null %}
 <div align="center"><a href="{{ url_for('addPost') }}">Add a post</a></div>
 {% else %}
-<div align="center">Login to post</div>
+<div align="center">Login to post.</div>
 {% endif %}
-{% for post in posts %}
-<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
-  <div class="container">
-    <h4><b>{{post.title}}</b></h4> 
-    <div class="crop">{{post.description}}</div> <br>
-    <a href="{{ url_for('viewPost', post_id = post.id) }}">Read more</a>
-  </div>
-</div>
-{% endfor %}
+{% if posts==[] %}
+<br><br>
+<p align="center">Nothing has been posted yet.</p>
+{% else %}
+  {% for post in posts %}
+    <div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
+      <div class="container">
+        <h4><b>{{post.title}}</b></h4> 
+        <div class="crop">{{post.description}}</div> <br>
+        <a href="{{ url_for('viewPost', post_id = post.id) }}">Read more</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}
 </body>
 </html>

@@ -68,6 +68,13 @@ body, html {
 <br><br>
 <p style="font-size:18px;">{{post.description}}</p>
 <br>
+{% if user!=null %}
+  {% if post.user.id == user.id %}
+    <form action="{{ url_for('delPost' , post_id=post.id) }}" method="post">
+      <input type="submit" value="Delete Post" style="background-color:red;">
+    </form>
+  {% endif %}
+{% endif %}
 </div>
 <div align="center">
 {% if user != null %}

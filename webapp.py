@@ -152,6 +152,25 @@ def editProfile():
 		user = session.query(Users).filter_by(id=login_session['id']).one()
 		return render_template('editProfile.html',user=user)
 
+@app.route('/delAccount/<int:user_id>' , methods=['POST'])
+def delAccount(user_id):
+	user = session.query(Users).filter_by(id=user_id).one()
+	posts = session.query(Forums).filter_by(user_id=user_id).all()
+	for post in posts:
+		comments=session.query(ForumComments).filter_by(forum_id=post.id).all()
+		for comment in comments:
+			session.delete(comment)
+		session.delete(post)
+	forumComments = session.query(ForumComments).filter_by(userNameF=user.userName).all()
+	for forumComment in forumComments:
+		session.delete(forumComment)
+	gameComments = session.query(GameComments).filter_by(userNameG=user.userName).all()
+	for gameComment in gameComments:
+		session.delete(gameComment)
+	session.delete(user)
+	session.commit()
+	return redirect(url_for('logout'))
+
 @app.route("/games")
 def games():
 	games = session.query(Games).all()
@@ -246,6 +265,16 @@ def viewPost(post_id):
 		else:
 			return render_template('viewPost.html' , post=post)
 
+@app.route('/delPost/<int:post_id>',methods=['POST'])
+def delPost(post_id):
+	post = session.query(Forums).filter_by(id=post_id).one()
+	comments = session.query(ForumComments).filter_by(forum_id=post_id).all()
+	for comment in comments:
+		session.delete(comment)
+	session.delete(post)
+	session.commit()
+	return redirect(url_for('forums'))
+
 @app.route("/addPost", methods = ['GET', 'POST'])
 def addPost():
 	if request.method == 'POST':
@@ -254,13 +283,24 @@ def addPost():
 			user_id = login_session['id'])
 		if post.title =="" or post.description == "":
 			flash("Your form is missing arguments")
-			return redirect(url_for('addPost'))
+			if 'id' in login_session:
+				user = session.query(Users).filter_by(id=login_session['id']).one()
+				return redirect(url_for('addPost'))
+			else:
+				return redirect(url_for('addPost'))
 		else:
 			session.add(post)
 			session.commit()
 			return redirect(url_for('viewPost' , post_id=post.id))
 	else:
-		return render_template('addPost.html')
+		if 'id' in login_session:
+			if(session.query(Users).filter_by(id=login_session['id']).first() is not None):
+				user=session.query(Users).filter_by(id=login_session['id']).first()
+				return render_template('addPost.html' , user = user)
+			else :
+				return render_template('addPost.html')
+		else:
+			return render_template('addPost.html')
 
 @app.route("/forumComment/<int:forum_id1>/<string:userName>" , methods=['GET','POST'])
 def forumComment(forum_id1 , userName):
