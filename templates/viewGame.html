@@ -77,7 +77,7 @@ Comment: <input type="text" name="comment" size="100" placeholder="Login to writ
 {% else %}
   {% for comment in comments %}
   <div class="card container" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
-    <p>{{ comment.userNameG }}: {{ comment.comment }}</p>
+    <p><a href="{{ url_for('profileUsername' , user_Name=comment.userNameG) }}">{{ comment.userNameG }}</a>: {{ comment.comment }}</p>
     {% if user != null %} 
       {% if comment.userNameG == user.userName %}
         <div align="right">

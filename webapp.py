@@ -113,6 +113,17 @@ def profile(user_id):
 	else:
 		return render_template('profile.html' , user=user)
 
+@app.route("/profile/<string:user_Name>")
+def profileUsername(user_Name):
+	user = session.query(Users).filter_by(userName=user_Name).one()
+	if 'id' in login_session:
+		if login_session['id'] is not None:
+			return render_template('profile.html' , user=user , current_id = login_session['id'])
+		else:
+			return render_template('profile.html' , user=user)
+	else:
+		return render_template('profile.html' , user=user)
+
 @app.route('/editProfile', methods = ['GET','POST'])
 def editProfile():
 	if request.method == 'POST':
