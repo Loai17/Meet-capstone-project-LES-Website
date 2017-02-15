@@ -68,16 +68,22 @@
 <div class="container" align="center">
 <h1>Contact Us</h1>
 <form action="{{ url_for('contactUs') }}" method = 'post'><br>
-<label>Name:</label> <br><input type="text" name="name" size="15" class="form-control">
+<label>Name:</label> <br><input id='name' type="text" name="name" size="15" class="form-control" required data-validation-required-message="Please enter your name.">
 <br>
-<label>Email:</label> <br><input type="text" name="email" size="20" class="form-control">
+<label>Email:</label> <br><input id="email" type="email" name="email" size="20" class="form-control" required data-validation-required-message="Please enter your email address.">
 <br>
-<label>Message:</label> <br><textarea type="text" name="message" size="20" class="form-control" rows="4"></textarea>
+<label>Message:</label> <br><textarea type="text" name="message" size="20" class="form-control" rows="4" id="message" required data-validation-required-message="Please enter a message."></textarea>
 <br>
-<label>Press </label><input type="checkbox" name="press" value="press">
-<label>Customer </label><input type="checkbox" name="customer" value="customer">
+<!-- <label>Press </label><input type="checkbox" name="press" value="press">
+<label>Customer </label><input type="checkbox" name="customer" value="customer"> -->
  <br><br><input type="submit" value="Send Message">
  </form>
  </div>
+
+    <!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+
 </body>
 </html>

@@ -60,7 +60,11 @@
 <br>
 <p style="font-size:15px">{{ game.smallDes }}</p>
 <br>
-<p style="font-size:20px">{{ game.Desctription }}</p>
+{% if game.name== 'Welter Brothers' %}
+<iframe src="https://widgets.gamejolt.com/package/v1?key=p2aCxRej" frameborder="0" width="500" height="245"></iframe>
+<br>
+{% endif %}
+<p style="font-size:20px">{{ game.Description }}</p>
 </div>
 <div align="center">
 {% if user != null %}
