@@ -56,14 +56,15 @@
 <h1>Our Games!</h1>
 
 {% for game in games %}
-<div class="card" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
-  <img src="static/images/territory.jpg" alt="Avatar" style="width:100%;">
+<div class="card" align="center" style="border-top-width: 25px;padding-top: 0px;padding-right: 5px;padding-left: 5px;padding-bottom: 10px;background-color:white;">
+  <img src="{{ game.image_url }}" alt="Avatar" width="400" height="200">
   <div class="container">
     <h4><b>{{game.name}}</b></h4> 
      <div class="crop">{{game.smallDes}}</div>
     <a href="{{ url_for('viewGame' , game_id = game.id )}}">Read More</a>
   </div>
 </div>
+<hr>
 {% endfor %}
 </body>
 </html>

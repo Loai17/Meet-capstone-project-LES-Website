@@ -50,6 +50,7 @@ class Games(Base):
     name=Column(String)
     smallDes=Column(String)
     description=Column(String)
+    image_url = Column(String)
 
 class ContactUs(Base):
     __tablename__="contactUs"

@@ -10,6 +10,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/lib/w3.css">
 
+ <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
   <style>
     body, html {
@@ -56,15 +66,21 @@
   </div>
 </nav>
 <div align="center">
-<h1>{{ game.name }}</h1>
+<h1 class="section-heading"><i>{{ game.name }}</i></h1>
 <br>
-<p style="font-size:15px">{{ game.smallDes }}</p>
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p style="font-size:15px"><b><i>{{ game.smallDes }}</i></b></p>
 <br>
 {% if game.name== 'Welter Brothers' %}
 <iframe src="https://widgets.gamejolt.com/package/v1?key=p2aCxRej" frameborder="0" width="500" height="245"></iframe>
-<br>
+<br><br>
 {% endif %}
-<p style="font-size:20px">{{ game.Description }}</p>
+<p style="font-size:18px">{{ game.description }}</p>
+</div></div></div></article>
+<p style="font-size:12px;">THIS IS NOT THE FINAL VERSION OF THE WEBSITE , IT'LL BE MORE ORGANIZED.</p>
 </div>
 <div align="center">
 {% if user != null %}
@@ -92,5 +108,17 @@ Comment: <input type="text" name="comment" size="100" placeholder="Login to writ
     </div>
   {% endfor %}
 {% endif %}
+   <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
 </body>
 </html>
